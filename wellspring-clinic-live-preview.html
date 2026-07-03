@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wellspring Family Clinic — Live Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B2B22; --paper:#FAF8F3; --surface:#FFFFFF; --sage:#4B6C55; --sage-dark:#33493B;
+  --sage-soft:#E7EEE8; --accent:#C08A28; --accent-dark:#9C6E1C; --accent-soft:#F6ECD6;
+  --border:#E4E0D4; --muted:#5F6E63; --muted-soft:#8B978C;
+  --radius-lg:20px; --radius-md:14px; --radius-sm:9px;
+  --shadow:0 10px 30px rgba(27,43,34,0.08); --shadow-sm:0 2px 10px rgba(27,43,34,0.06);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;margin:0 0 .5em;color:var(--ink);letter-spacing:-0.01em;line-height:1.15;}
+p{margin:0 0 1em;color:var(--muted);}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.container{max-width:1180px;margin:0 auto;padding:0 28px;}
+section{padding:88px 0;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);margin-bottom:14px;}
+.eyebrow::before{content:"";width:20px;height:2px;background:var(--accent);display:inline-block;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:14.5px;border:1.5px solid transparent;cursor:pointer;transition:.2s;}
+.btn-primary{background:var(--sage);color:#fff;}
+.btn-primary:hover{background:var(--sage-dark);transform:translateY(-1px);}
+.btn-outline{background:transparent;border-color:var(--ink);color:var(--ink);}
+.btn-outline:hover{background:var(--ink);color:#fff;}
+.btn-accent{background:var(--accent);color:#fff;}
+.btn-accent:hover{background:var(--accent-dark);}
+.btn-sm{padding:9px 18px;font-size:13px;}
+header.site-header{position:sticky;top:0;z-index:50;background:rgba(250,248,243,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+.nav-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;cursor:pointer;}
+.logo .mark{width:38px;height:38px;border-radius:10px;background:var(--sage);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces';font-size:17px;flex-shrink:0;}
+.logo .tag{display:block;font-family:'Inter';font-size:10.5px;font-weight:600;color:var(--muted-soft);text-transform:uppercase;letter-spacing:.06em;}
+nav.main-nav{display:flex;align-items:center;gap:30px;}
+nav.main-nav a{font-size:14px;font-weight:600;color:var(--muted);transition:.15s;position:relative;cursor:pointer;}
+nav.main-nav a:hover,nav.main-nav a.active{color:var(--ink);}
+nav.main-nav a.active::after{content:"";position:absolute;bottom:-6px;left:0;right:0;height:2px;background:var(--accent);border-radius:2px;}
+.nav-cta{display:flex;align-items:center;gap:16px;}
+.phone-chip{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--sage-dark);}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+.hero{padding:70px 0 90px;position:relative;overflow:hidden;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+.hero h1{font-size:44px;font-weight:600;}
+.hero .lede{font-size:17px;max-width:460px;}
+.hero-actions{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:34px;margin-top:44px;flex-wrap:wrap;}
+.hero-stats div b{display:block;font-family:'Fraunces';font-size:26px;color:var(--sage-dark);}
+.hero-stats div span{font-size:12.5px;color:var(--muted-soft);font-weight:600;}
+.hero-art{position:relative;background:var(--sage-soft);border-radius:var(--radius-lg);aspect-ratio:4/4.6;overflow:hidden;box-shadow:var(--shadow);}
+.hero-art svg{width:100%;height:100%;}
+.hero-badge{position:absolute;bottom:18px;left:18px;right:18px;background:var(--surface);border-radius:var(--radius-md);padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-sm);}
+.hero-badge .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.hero-badge b{font-size:13px;display:block;}
+.hero-badge span{font-size:11.5px;color:var(--muted-soft);}
+.journey{background:var(--sage-dark);color:#fff;padding:0;}
+.journey-inner{display:flex;overflow-x:auto;}
+.journey-step{flex:1;min-width:180px;padding:38px 26px;border-right:1px solid rgba(255,255,255,0.12);}
+.journey-step:last-child{border-right:none;}
+.journey-step .num{font-family:'Fraunces';font-size:13px;color:var(--accent);font-weight:600;margin-bottom:10px;display:block;}
+.journey-step h4{color:#fff;font-size:16px;margin-bottom:6px;}
+.journey-step p{color:rgba(255,255,255,0.65);font-size:13px;margin:0;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:28px 24px;box-shadow:var(--shadow-sm);transition:.2s;}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
+.card .icon{width:46px;height:46px;border-radius:12px;background:var(--sage-soft);color:var(--sage-dark);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.card h3{font-size:17px;margin-bottom:8px;}
+.card p{font-size:13.5px;margin-bottom:0;}
+.section-head{max-width:600px;margin-bottom:44px;}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+.section-head h2{font-size:32px;font-weight:600;}
+.section-alt{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.section-sage{background:var(--sage-soft);}
+.doctor-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);}
+.doctor-photo{aspect-ratio:1/1;background:var(--sage-soft);display:flex;align-items:center;justify-content:center;}
+.doctor-photo span{font-family:'Fraunces';font-size:44px;color:var(--sage-dark);}
+.doctor-body{padding:20px 22px 24px;}
+.doctor-body h3{font-size:17px;margin-bottom:2px;}
+.doctor-body .role{font-size:12.5px;font-weight:700;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px;display:block;}
+.doctor-body p{font-size:13.5px;}
+.testimonial{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:26px 24px;box-shadow:var(--shadow-sm);}
+.testimonial .stars{color:var(--accent);font-size:14px;margin-bottom:12px;letter-spacing:2px;}
+.testimonial p.quote{font-style:italic;color:var(--ink);font-size:14.5px;}
+.testimonial .who{font-size:12.5px;font-weight:700;color:var(--muted-soft);margin-top:14px;}
+.service-row{display:flex;gap:22px;align-items:flex-start;padding:26px 0;border-bottom:1px solid var(--border);}
+.service-row:last-child{border-bottom:none;}
+.service-row .icon{width:52px;height:52px;border-radius:14px;background:var(--sage-soft);color:var(--sage-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.service-row h3{font-size:18px;margin-bottom:6px;}
+.service-row .meta{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;}
+.service-row .meta span{font-size:12px;font-weight:700;color:var(--sage-dark);background:var(--sage-soft);padding:4px 10px;border-radius:20px;}
+.cta-band{background:var(--ink);color:#fff;border-radius:var(--radius-lg);padding:56px 48px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;}
+.cta-band h2{color:#fff;font-size:28px;margin-bottom:6px;}
+.cta-band p{color:rgba(255,255,255,0.65);margin:0;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:flex-start;}
+.info-row{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--border);}
+.info-row:last-child{border-bottom:none;}
+.info-row .icon{width:42px;height:42px;border-radius:11px;background:var(--sage-soft);color:var(--sage-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.info-row h4{font-size:14.5px;margin-bottom:3px;}
+.info-row p{font-size:13.5px;margin:0;}
+.map-frame{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);height:220px;background:var(--sage-soft);display:flex;align-items:center;justify-content:center;margin-top:24px;color:var(--sage-dark);font-size:13px;font-weight:600;text-align:center;padding:20px;}
+form.contact-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;box-shadow:var(--shadow-sm);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field.full{grid-column:1/-1;}
+.field label{font-size:12px;font-weight:700;color:var(--muted);}
+.field input,.field select,.field textarea{border:1px solid var(--border);border-radius:9px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;background:var(--paper);color:var(--ink);}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sage);background:var(--surface);}
+.field textarea{min-height:100px;resize:vertical;}
+.form-note{font-size:12px;color:var(--muted-soft);margin-top:10px;}
+.form-success{display:none;background:var(--sage-soft);color:var(--sage-dark);padding:14px 16px;border-radius:10px;font-size:13.5px;font-weight:600;margin-bottom:16px;align-items:center;gap:8px;}
+.form-success.show{display:flex;}
+footer.site-footer{background:var(--sage-dark);color:rgba(255,255,255,0.75);padding:64px 0 28px;margin-top:0;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.14);}
+.footer-grid h4{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;}
+.footer-grid a,.footer-grid p{display:block;font-size:13.5px;color:rgba(255,255,255,0.68);margin-bottom:10px;cursor:pointer;}
+.footer-grid a:hover{color:#fff;}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-logo .mark{width:34px;height:34px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces';}
+.footer-logo b{color:#fff;font-size:16px;}
+.footer-bottom{display:flex;justify-content:space-between;padding-top:22px;font-size:12.5px;flex-wrap:wrap;gap:10px;}
+.page{display:none;}
+.page.active{display:block;}
+@media(max-width:960px){
+  .hero-grid,.contact-grid{grid-template-columns:1fr;}
+  .grid-3{grid-template-columns:1fr 1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .hero h1{font-size:34px;}
+}
+@media(max-width:700px){
+  section{padding:56px 0;}
+  nav.main-nav{position:fixed;top:70px;left:0;right:0;bottom:0;background:var(--paper);flex-direction:column;align-items:flex-start;padding:30px 28px;gap:22px;transform:translateX(100%);transition:.25s;z-index:60;}
+  nav.main-nav.open{transform:translateX(0);}
+  .hamburger{display:block;}
+  .phone-chip{display:none;}
+  .grid-3,.grid-2,.form-row,.footer-grid{grid-template-columns:1fr;}
+  .cta-band{flex-direction:column;text-align:center;}
+  .journey-step{min-width:220px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-row">
+    <a class="logo" data-nav="home"><span class="mark">W</span><span>Wellspring<span class="tag">Family Clinic</span></span></a>
+    <nav class="main-nav">
+      <a data-nav="home" class="active">Home</a>
+      <a data-nav="about">About</a>
+      <a data-nav="services">Services</a>
+      <a data-nav="contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <span class="phone-chip">📞 +91 90000 12345</span>
+      <a data-nav="contact" class="btn btn-primary btn-sm">Book Appointment</a>
+      <button class="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HOME ============ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Family Medicine &amp; Primary Care</div>
+        <h1>Healthcare that knows your family by name.</h1>
+        <p class="lede">Wellspring Family Clinic brings general medicine, pediatric care and chronic disease management together under one roof — with same-day appointments and doctors who actually remember your history.</p>
+        <div class="hero-actions">
+          <a data-nav="contact" class="btn btn-primary">Book an Appointment</a>
+          <a data-nav="services" class="btn btn-outline">Explore Services</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>12+</b><span>Years serving the neighbourhood</span></div>
+          <div><b>9,400+</b><span>Patients treated</span></div>
+          <div><b>4.8/5</b><span>Average patient rating</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="460" fill="#E7EEE8"/>
+          <circle cx="200" cy="160" r="90" fill="#4B6C55" opacity="0.15"/>
+          <circle cx="200" cy="160" r="60" fill="#4B6C55" opacity="0.25"/>
+          <path d="M200 110 v100 M150 160 h100" stroke="#33493B" stroke-width="10" stroke-linecap="round"/>
+          <rect x="60" y="290" width="280" height="120" rx="16" fill="#FFFFFF" stroke="#E4E0D4" stroke-width="1.5"/>
+          <rect x="86" y="316" width="140" height="14" rx="7" fill="#C08A28" opacity="0.85"/>
+          <rect x="86" y="342" width="200" height="10" rx="5" fill="#E4E0D4"/>
+          <rect x="86" y="362" width="170" height="10" rx="5" fill="#E4E0D4"/>
+          <rect x="86" y="382" width="120" height="10" rx="5" fill="#E4E0D4"/>
+        </svg>
+        <div class="hero-badge"><span class="dot"></span><div><b>Open Now</b><span>Mon–Sat · 9:00 AM – 8:00 PM</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="journey">
+    <div class="container journey-inner">
+      <div class="journey-step"><span class="num">01</span><h4>Walk in or book</h4><p>Reserve a slot online or simply walk in — we keep room for same-day visits daily.</p></div>
+      <div class="journey-step"><span class="num">02</span><h4>Consult</h4><p>A focused, unhurried consultation with a doctor who reviews your full history.</p></div>
+      <div class="journey-step"><span class="num">03</span><h4>Diagnose</h4><p>On-site sample collection and quick-turnaround lab partnerships when tests are needed.</p></div>
+      <div class="journey-step"><span class="num">04</span><h4>Treat</h4><p>A clear treatment plan explained in plain language, with prescriptions sent to your phone.</p></div>
+      <div class="journey-step"><span class="num">05</span><h4>Follow up</h4><p>We check in — by call or teleconsultation — so nothing falls through the cracks.</p></div>
+    </div>
+  </div>
+
+  <section class="section-alt">
+    <div class="container">
+      <div class="section-head"><div class="eyebrow">What We Treat</div><h2>Care built around how families actually get sick.</h2></div>
+      <div class="grid-3">
+        <div class="card"><div class="icon">🩺</div><h3>General &amp; Family Medicine</h3><p>Everyday illnesses, ongoing conditions, and preventive care for every age in the household.</p></div>
+        <div class="card"><div class="icon">🧒</div><h3>Pediatric Care</h3><p>Growth tracking, vaccinations and gentle care for infants through teens, led by Dr. Karthik Rao.</p></div>
+        <div class="card"><div class="icon">📈</div><h3>Chronic Disease Management</h3><p>Structured, ongoing care plans for diabetes, hypertension and thyroid conditions.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:36px;"><a data-nav="services" class="btn btn-outline btn-sm">View all services</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head center"><div class="eyebrow">Meet the Team</div><h2>Doctors who take the time to listen.</h2></div>
+      <div class="grid-3">
+        <div class="doctor-card"><div class="doctor-photo"><span>AR</span></div><div class="doctor-body"><h3>Dr. Ananya Reddy</h3><span class="role">MBBS, MD — Family Medicine</span><p>12 years in family practice, with a focus on preventive care and long-term patient relationships.</p></div></div>
+        <div class="doctor-card"><div class="doctor-photo"><span>KR</span></div><div class="doctor-body"><h3>Dr. Karthik Rao</h3><span class="role">MBBS, DCH — Pediatrics</span><p>9 years treating infants and children, with a gentle, parent-friendly consultation style.</p></div></div>
+        <div class="doctor-card"><div class="doctor-photo"><span>MJ</span></div><div class="doctor-body"><h3>Dr. Meenal Joshi</h3><span class="role">BDS — Dental Partner</span><p>In-house dental consultations twice a week for routine checkups and minor procedures.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sage">
+    <div class="container">
+      <div class="section-head center"><div class="eyebrow">Patient Stories</div><h2>What our patients say.</h2></div>
+      <div class="grid-3">
+        <div class="testimonial"><div class="stars">★★★★★</div><p class="quote">The doctors here actually explain what's going on instead of rushing you out the door. My son's fever visits used to be stressful — not anymore.</p><div class="who">— Lakshmi V., patient since 2021</div></div>
+        <div class="testimonial"><div class="stars">★★★★★</div><p class="quote">I've been managing my diabetes here for two years. Regular follow-ups and a doctor who remembers my numbers without checking notes.</p><div class="who">— Suresh N., patient since 2022</div></div>
+        <div class="testimonial"><div class="stars">★★★★☆</div><p class="quote">Walked in on a Saturday morning with no appointment and was seen within twenty minutes. Clean clinic, friendly front desk.</p><div class="who">— Farha S., patient since 2023</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section><div class="container"><div class="cta-band"><div><h2>Ready to bring your family here?</h2><p>Same-day slots open every morning at 9 AM. Teleconsultations available on request.</p></div><a data-nav="contact" class="btn btn-accent">Book an Appointment</a></div></div></section>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div class="page" id="page-about">
+  <section class="hero" style="padding-bottom:60px;">
+    <div class="container">
+      <div class="eyebrow">Our Story</div>
+      <h1 style="max-width:680px;">Started as a single consulting room. Grown by word of mouth.</h1>
+      <p class="lede" style="max-width:640px;">Wellspring Family Clinic opened in 2013 with one doctor, one room and a simple idea: patients stay healthier when their doctor actually knows them. Thirteen years later, that idea is still what runs the clinic.</p>
+    </div>
+  </section>
+  <section class="section-alt">
+    <div class="container grid-2">
+      <div>
+        <div class="eyebrow">Our Mission</div><h2>Unhurried care, close to home.</h2>
+        <p>We built Wellspring around a frustration a lot of families share — rushed appointments, unfamiliar doctors every visit, and having to repeat your medical history each time. So we set a rule early on: every patient gets a full consultation, and every returning patient is met by someone who has actually read their file.</p>
+        <p>That's meant staying deliberately small. We see fewer patients per day than a typical clinic so each visit gets the time it needs.</p>
+      </div>
+      <div>
+        <div class="eyebrow">Our Values</div><h2>What guides every visit.</h2>
+        <div class="grid-2" style="gap:16px;">
+          <div class="card" style="padding:20px;"><h3 style="font-size:15px;">Continuity</h3><p style="font-size:13px;">The same doctors see you visit after visit, so context never gets lost.</p></div>
+          <div class="card" style="padding:20px;"><h3 style="font-size:15px;">Clarity</h3><p style="font-size:13px;">Diagnoses and treatment plans explained in plain language, not jargon.</p></div>
+          <div class="card" style="padding:20px;"><h3 style="font-size:15px;">Accessibility</h3><p style="font-size:13px;">Same-day slots, teleconsultations, and transparent pricing — no surprises.</p></div>
+          <div class="card" style="padding:20px;"><h3 style="font-size:15px;">Prevention</h3><p style="font-size:13px;">We'd rather catch something early than treat it late — checkups matter.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="section-head center"><div class="eyebrow">Meet the Team</div><h2>The people behind Wellspring.</h2></div>
+      <div class="grid-3">
+        <div class="doctor-card"><div class="doctor-photo"><span>AR</span></div><div class="doctor-body"><h3>Dr. Ananya Reddy</h3><span class="role">MBBS, MD — Family Medicine</span><p>Founded Wellspring in 2013 after five years in hospital practice. Leads the clinic's chronic disease management program.</p></div></div>
+        <div class="doctor-card"><div class="doctor-photo"><span>KR</span></div><div class="doctor-body"><h3>Dr. Karthik Rao</h3><span class="role">MBBS, DCH — Pediatrics</span><p>Joined in 2018 to lead pediatric care. Runs the clinic's immunization program and a monthly free growth camp.</p></div></div>
+        <div class="doctor-card"><div class="doctor-photo"><span>MJ</span></div><div class="doctor-body"><h3>Dr. Meenal Joshi</h3><span class="role">BDS — Dental Partner</span><p>Visiting dental partner since 2021, available Tuesdays and Fridays for checkups and minor procedures.</p></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section-sage">
+    <div class="container">
+      <div class="section-head center"><div class="eyebrow">The Facility</div><h2>What to expect when you walk in.</h2></div>
+      <div class="grid-3">
+        <div class="card"><div class="icon">🏥</div><h3>Two consultation rooms</h3><p>Private, air-conditioned rooms so consultations never feel rushed or overheard.</p></div>
+        <div class="card"><div class="icon">🧪</div><h3>On-site sample collection</h3><p>Blood and basic diagnostic samples collected in-house, with results in 24–48 hours.</p></div>
+        <div class="card"><div class="icon">⏱️</div><h3>Rarely a long wait</h3><p>Slot-based scheduling keeps average wait times under 15 minutes, even on walk-in days.</p></div>
+      </div>
+    </div>
+  </section>
+  <section><div class="container"><div class="cta-band"><div><h2>Come see the clinic for yourself.</h2><p>First-time visitors get a free 10-minute orientation with our front desk team.</p></div><a data-nav="contact" class="btn btn-accent">Plan a Visit</a></div></div></section>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<div class="page" id="page-services">
+  <section class="hero" style="padding-bottom:50px;">
+    <div class="container">
+      <div class="eyebrow">What We Offer</div>
+      <h1 style="max-width:680px;">Services for every stage of your family's health.</h1>
+      <p class="lede" style="max-width:600px;">From a child's first vaccination to managing a parent's blood pressure, Wellspring covers the everyday healthcare needs of the whole household.</p>
+    </div>
+  </section>
+  <section class="section-alt">
+    <div class="container">
+      <div class="service-row"><div class="icon">🩺</div><div><h3>General Consultation</h3><p>Same-day appointments for fevers, infections, injuries and everyday illnesses, with a full review of your medical history at every visit.</p><div class="meta"><span>Walk-in friendly</span><span>15–20 min visit</span><span>₹400 consultation</span></div></div></div>
+      <div class="service-row"><div class="icon">🧒</div><div><h3>Pediatric Care</h3><p>Growth and development tracking, common childhood illnesses, and a calm, child-friendly consultation room.</p><div class="meta"><span>Ages 0–16</span><span>Growth charts on file</span><span>₹450 consultation</span></div></div></div>
+      <div class="service-row"><div class="icon">📈</div><div><h3>Diabetes &amp; Hypertension Management</h3><p>Structured, ongoing care with quarterly review visits, medication management and diet guidance.</p><div class="meta"><span>Quarterly review plans</span><span>Includes lab tracking</span><span>Packages from ₹1,500</span></div></div></div>
+      <div class="service-row"><div class="icon">💉</div><div><h3>Vaccinations &amp; Immunization</h3><p>Full childhood immunization schedule plus adult vaccines including flu, tetanus and travel vaccinations.</p><div class="meta"><span>Government schedule followed</span><span>Digital vaccine card</span></div></div></div>
+      <div class="service-row"><div class="icon">📋</div><div><h3>Health Checkup Packages</h3><p>Preventive full-body checkups for individuals or families, covering blood work, BP, sugar and BMI review.</p><div class="meta"><span>Individual &amp; family packages</span><span>Results in 24–48 hrs</span><span>From ₹1,200</span></div></div></div>
+      <div class="service-row"><div class="icon">🩹</div><div><h3>Minor Procedures &amp; Dressing</h3><p>Wound dressing, stitching, abscess drainage and other minor outpatient procedures handled on-site.</p><div class="meta"><span>Same-day slots</span><span>Sterile procedure room</span></div></div></div>
+      <div class="service-row"><div class="icon">🧬</div><div><h3>Lab Sample Collection</h3><p>Blood and urine sample collection at the clinic, processed through our partner diagnostic lab.</p><div class="meta"><span>No separate lab visit needed</span><span>Digital reports</span></div></div></div>
+      <div class="service-row"><div class="icon">📱</div><div><h3>Teleconsultation</h3><p>Follow-up consultations over video call for existing patients — ideal for medication reviews.</p><div class="meta"><span>Existing patients only</span><span>₹300 per call</span></div></div></div>
+    </div>
+  </section>
+  <section><div class="container"><div class="cta-band"><div><h2>Not sure which service you need?</h2><p>Call the front desk and we'll point you in the right direction — no charge for the conversation.</p></div><a data-nav="contact" class="btn btn-accent">Contact the Clinic</a></div></div></section>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<div class="page" id="page-contact">
+  <section class="hero" style="padding-bottom:50px;">
+    <div class="container">
+      <div class="eyebrow">Get In Touch</div>
+      <h1 style="max-width:600px;">Let's get you on the schedule.</h1>
+      <p class="lede" style="max-width:560px;">Call us, walk in, or send a request below and our front desk will confirm a slot within one working day.</p>
+    </div>
+  </section>
+  <section class="section-alt">
+    <div class="container contact-grid">
+      <div>
+        <div class="info-row"><div class="icon">📍</div><div><h4>Address</h4><p>12-4-88 Lakeview Road, Osmania Colony, Hyderabad, Telangana 500007</p></div></div>
+        <div class="info-row"><div class="icon">📞</div><div><h4>Phone</h4><p>+91 90000 12345 (front desk) · +91 90000 12399 (emergency)</p></div></div>
+        <div class="info-row"><div class="icon">✉️</div><div><h4>Email</h4><p>hello@wellspringclinic.in</p></div></div>
+        <div class="info-row"><div class="icon">🕒</div><div><h4>Hours</h4><p>Mon – Sat: 9:00 AM – 8:00 PM &nbsp;·&nbsp; Sunday: 10:00 AM – 2:00 PM (emergency only)</p></div></div>
+        <div class="map-frame">📍 Map placeholder — replace with an embedded Google Maps iframe for the clinic's real address before going live.</div>
+      </div>
+      <div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-success" id="formSuccess">Thanks — your message has been received.</div>
+          <div class="form-row">
+            <div class="field"><label for="c_name">Full name *</label><input type="text" id="c_name" required placeholder="Your name" /></div>
+            <div class="field"><label for="c_phone">Phone number *</label><input type="tel" id="c_phone" required placeholder="+91 98xxx xxxxx" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="c_email">Email</label><input type="email" id="c_email" placeholder="you@example.com" /></div>
+            <div class="field"><label for="c_service">Service needed</label>
+              <select id="c_service">
+                <option>General Consultation</option><option>Pediatric Care</option><option>Diabetes / Hypertension Management</option>
+                <option>Vaccination</option><option>Health Checkup Package</option><option>Minor Procedure</option>
+                <option>Teleconsultation</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row"><div class="field full"><label for="c_date">Preferred date</label><input type="date" id="c_date" /></div></div>
+          <div class="form-row"><div class="field full"><label for="c_message">Message</label><textarea id="c_message" placeholder="Tell us briefly what's going on, or any scheduling preferences."></textarea></div></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Request Appointment</button>
+          <p class="form-note">This is a demo form for the pitch project — connect it to a form service (e.g. Formspree, Google Forms) or a backend before publishing live.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-logo"><span class="mark">W</span><b>Wellspring Family Clinic</b></div><p>Compassionate, unhurried family healthcare in the heart of Hyderabad since 2013.</p></div>
+      <div><h4>Explore</h4><a data-nav="home">Home</a><a data-nav="about">About Us</a><a data-nav="services">Services</a><a data-nav="contact">Contact</a></div>
+      <div><h4>Hours</h4><p>Mon – Sat: 9:00 AM – 8:00 PM</p><p>Sunday: 10:00 AM – 2:00 PM (emergency only)</p></div>
+      <div><h4>Contact</h4><p>12-4-88 Lakeview Road, Osmania Colony, Hyderabad, Telangana 500007</p><p>+91 90000 12345</p><p>hello@wellspringclinic.in</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Wellspring Family Clinic. All rights reserved.</span><span>Sample project built for pitch purposes.</span></div>
+  </div>
+</footer>
+
+<script>
+function goTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('nav.main-nav a').forEach(a=>a.classList.toggle('active', a.dataset.nav===page));
+  document.querySelector('.main-nav').classList.remove('open');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+document.querySelectorAll('[data-nav]').forEach(el=>{
+  el.addEventListener('click', ()=> goTo(el.dataset.nav));
+});
+document.querySelector('.hamburger').addEventListener('click', ()=>{
+  document.querySelector('.main-nav').classList.toggle('open');
+});
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('formSuccess').classList.add('show');
+  this.reset();
+});
+</script>
+</body>
+</html>
